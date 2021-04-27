@@ -808,7 +808,7 @@ const shape = {
 let timer;
 
 function queue() {
-  const text = 'DARE2DEV';
+  const text = 'D2D';
 
   let i = 0;
   const max = text.length;
@@ -899,7 +899,7 @@ document.getElementById('input').addEventListener('keypress', ({ keyCode, target
 });
 
 shape.init();
-shape.print('DARE2DEV');
+shape.print('D2D');
 
 // prevent zoom
 document.addEventListener('touchmove', e => e.preventDefault());
