@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" class="p-16 flex bg-gradient-to-r from-red-400 to-red-400 min-h-screen w-full">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dare2Develop: Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.8.10/tailwind.min.css'>
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+
+    <% if(messages.error) { %>
+        <div class="bg-red-100 border border-red-400 mb-5 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <span class="block sm:inline">
+                <%= messages.error %>
+            </span>
+        </div>
+        <% } %>
+
+            <!-- partial:index.partial.html -->
+            <div class="relative h-full text-gray-100 bg-primary rounded-lg shadow-showcase"
+                style="background-color: rgba(0, 0, 0, 0.9); display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <img src="trinity.png" height="80px" width="80px" alt=""> <br>
+
+                <% if(messages.bigMessage) {%>
+                    <div class="text-center text-3xl text-white">
+                        <%= messages.bigMessage %>
+                    </div>
+                    <% } else { %>
+                        <div class="text-center text-3xl text-white">
+                            No Message to Display
+                        </div>
+                        <% } %>
+            </div>
+            <!-- partial -->
+
+</body>
+
+</html>

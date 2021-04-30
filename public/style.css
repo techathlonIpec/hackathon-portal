@@ -1,40 +1,67 @@
-#input {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  width: 8em;
-  max-width: 80%;
-  background: none;
-  border: none;
-  outline: none;
-  border-bottom: 2px solid #fff;
-  color: #fff;
-  font-size: 3em;
-  text-align: center;
-  z-index: 999;
-  opacity: 0.25;
-  transform: translateX(-50%);
-  transition: opacity 0.3s;
-}
-#input:hover, #input:focus {
-  opacity: 1;
-}
-
-#input:disabled{
-  color: white;
-  opacity: 1;
-}
-
 body {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+}
+
+.bg-primary {
+  background: #0e0e0e;
+}
+.text-primary {
+  color: #0e0e0e;
+}
+
+.bg-primary-light {
+  background-color: #2e2e2e;
+  background-color: rgba(38, 38, 38, var(--bg-opacity));
+}
+
+.bg-primary-lighter {
+  background-color: #3e3e3e;
+  background-color: rgba(62, 62, 62, var(--bg-opacity));
+}
+
+.border-primary-lightest {
+  border-color: #6e6e6e;
+}
+
+.text-primary-lightest,
+.placeholder-primary-lightest::placeholder {
+  color: #6e6e6e;
+}
+
+.fill-primary-lightest {
+  fill: #6e6e6e;
+}
+
+.opacity-7 {
+  opacity: 0.07;
+}
+
+.bg-opacity-90 {
+  --bg-opacity: 0.9;
+}
+
+.bg-blur {
+  backdrop-filter: blur(0.325rem);
+}
+
+.bg-accent {
+  background: #eb486e;
+}
+.text-accent {
+  color: #eb486e;
+}
+.fill-accent {
+  fill: #eb486e;
+}
+
+.bg-accent-gradient {
+  background: linear-gradient(to right, #f6505f, #eb486e);
+}
+
+.shadow-showcase {
+  box-shadow: 0 1.5rem 3rem -0.75rem rgba(0, 0, 0, 0.5);
+}
+
+.w-plans {
+  width: 120%;
 }

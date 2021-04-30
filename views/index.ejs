@@ -1,18 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>TCF: Dare2Develop</title>
-  <link rel="stylesheet" href="style.css">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cryptohunt 2.0</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="login.css" />
 </head>
+
 <body>
-<!-- partial:index.partial.html -->
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:200' rel='stylesheet' type='text/css'>
+  <div class="container">
+    <div class="window">
+      <div class="handle">
+        <div class="buttons">
+          <button class="close">
+          </button>
+          <button class="minimize">
+          </button>
+          <button class="maximize">
+          </button>
+        </div>
+        <span class="title"></span>
+      </div>
+      <div class="terminal"></div>
+    </div>
+  </div>
 
-<input type="text" id="input" disabled value="#ipectrinity" title="type and press enter" />
+  <form action="/login" method="POST" id="loginForm" hidden>
+    <input type="text" id="teamName" name="teamName">
+    <input type="text" id="password" name="password">
+  </form>
 
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script><script  src="script.js"></script>
-
+  <%if(messages.error){%>
+    <h1 id="errorMessage" hidden>
+      <%= messages.error %>
+    </h1>
+    <% } %>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="code.js"></script>
+
 </html>
