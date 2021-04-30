@@ -89,7 +89,7 @@ app.get('/eventPage', checkEventTime, checkAuthenticated, (req, res) => {
         if (!team) return res.status(400).send({ done: false, message: 'No Team found with the given teamName.' })
 
         // We look into account type
-        if (team.accountType === 'participant') {
+        if (team.accountType === 'participants') {
             // We find that if they have topic already decided
             if (team.topicSelected === 0) {
                 questionCollection.find().then(questions => {

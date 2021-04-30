@@ -14,7 +14,7 @@ const teamSchema = new schema({
     accountType: {
         type: String,
         required: true,
-        default: 'participant'
+        default: 'participants'
     },
     topicSelected: {
         type: Number,
