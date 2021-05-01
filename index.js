@@ -100,7 +100,7 @@ app.get('/eventPage', checkEventTime, checkAuthenticated, (req, res) => {
                 // We render the Dashboard where the Topic Selection is Available
             }
             else {
-                teamsCollection.find({ accountType: 'participant' }).sort({ TotalAvgScore: -1 }).limit(10).then(leaderBoardTeams => {
+                teamsCollection.find({ accountType: 'participants' }).sort({ TotalAvgScore: -1 }).limit(10).then(leaderBoardTeams => {
                     questionCollection.findOne({ topicNumber: team.topicSelected }).then(topicSelected => {
                         res.render('teamDashboard.ejs', { team: team, leaderboard: leaderBoardTeams, topicSelected: topicSelected })
                     })
@@ -110,7 +110,7 @@ app.get('/eventPage', checkEventTime, checkAuthenticated, (req, res) => {
             }
         }
         else {
-            teamsCollection.find({ accountType: 'participant' }).then(teams => {
+            teamsCollection.find({ accountType: 'participants' }).then(teams => {
                 res.render('judgeDashboard.ejs', { team: req.user, teams: teams })
             })
 
@@ -156,9 +156,15 @@ app.get('/teamPage', checkEventTime, checkAuthenticated, (req, res) => {
         teamsCollection.findOne({ teamName: req.query.teamName }).then(team => {
             if (team) {
                 if (team.judgeRound < 4) {
-                    questionCollection.findOne({ topicNumber: team.topicSelected }).then(topic => {
-                        res.render('teamPage.ejs', { Theteam: team, topic: topic })
-                    })
+                    if (team.topicSelected != 0) {
+                        questionCollection.findOne({ topicNumber: team.topicSelected }).then(topic => {
+                            res.render('teamPage.ejs', { Theteam: team, topic: topic })
+                        })
+                    }
+                    else {
+                        req.flash('bigMessage', 'This team has not selected any topic. Can not Judge them.')
+                        res.render('bigMessage.ejs')
+                    }
                 }
                 else {
                     req.flash('bigMessage', 'This team has been judged for all three rounds')
@@ -178,7 +184,6 @@ app.post('/submitMarks', checkEventTime, checkAuthenticated, (req, res) => {
         teamsCollection.findOne({ teamName: req.body.teamName }).then(team => {
             if (team) {
                 team.judgementScoreOne = (Number(team.judgementScoreOne) + Number(req.body.judgementScoreOne)) / team.judgeRound
-                console.log(team.judgementScoreOne);
                 team.judgementScoreTwo = (Number(team.judgementScoreTwo) + Number(req.body.judgementScoreTwo)) / team.judgeRound
                 team.judgementScoreThree = (Number(team.judgementScoreThree) + Number(req.body.judgementScoreThree)) / team.judgeRound
                 team.judgementScoreFour = (Number(team.judgementScoreFour) + Number(req.body.judgementScoreFour)) / team.judgeRound
