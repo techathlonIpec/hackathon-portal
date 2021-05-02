@@ -155,7 +155,7 @@ app.get('/teamPage', checkEventTime, checkAuthenticated, (req, res) => {
     if (req.user.accountType === 'judge') {
         teamsCollection.findOne({ teamName: req.query.teamName }).then(team => {
             if (team) {
-                if (team.judgeRound < 4) {
+                if (team.judgeRound < 5) {
                     if (team.topicSelected != 0) {
                         questionCollection.findOne({ topicNumber: team.topicSelected }).then(topic => {
                             res.render('teamPage.ejs', { Theteam: team, topic: topic })
