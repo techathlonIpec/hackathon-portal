@@ -23,7 +23,7 @@ function checkEventTime(req, res, next) {
         next()
     }
     if (eventFlag == 'AFTER') {
-        req.flash('bigMessage', 'Oh Shoot! The event is over. Playtime is over. Hope you participated and Enjoyed. Follow us for results.')
+        req.flash('bigMessage', 'Event is Over. Final Rounds Judgement will be shared with you soon.')
         return res.redirect('/message')
     }
 }
