@@ -211,6 +211,12 @@ app.post('/submitMarks', checkEventTime, checkAuthenticated, (req, res) => {
     }
 })
 
+app.get('/leaderboard', (req, res) => {
+    teamsCollection.find({ accountType: 'participants' }).sort({ TotalAvgScore: -1 }).limit(10).then(teams => {
+        res.render('leaderboard.ejs', { teams })
+    })
+})
+
 app.get('/message', (req, res) => {
     res.render('bigMessage.ejs')
 })

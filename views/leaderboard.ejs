@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" class="p-16 flex bg-gradient-to-r from-red-400 to-red-400 min-h-screen w-full">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Dare2Develop: Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.8.10/tailwind.min.css'>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+  <!-- partial:index.partial.html -->
+  <div class="relative h-full text-gray-100 p-1 bg-primary rounded-lg shadow-showcase"
+    style="background-color: rgba(0, 0, 0, 0.9);">
+
+    <main class="p-5">
+      <div class="relative p-5"
+        style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <img src="trinity.png" height="70px" width="70px" alt="">
+        <h1 class="text-3xl">Trinty Cyber Forum: Dare2Develop</h1>
+        <h1 class="text-3xl">Leaderboard</h1>
+        <table>
+          <tr>
+            <th>
+              Position
+            </th>
+            <th>
+              Team Name
+            </th>
+            <th>
+              Marks Scored
+            </th>
+          </tr>
+          <% for(let i=0; i<teams.length;i++){ %>
+            <% if(i<5) { %>
+              <tr class="top5">
+                <td>
+                  <%= i+1 %>.
+                </td>
+                <td>
+                  <%= teams[i].teamName %>
+                </td>
+                <td>
+                  <%= teams[i].TotalAvgScore.toString().slice(0,4) %>
+                </td>
+              </tr>
+
+              <% } else { %>
+                <tr>
+                  <td>
+                    <%= i+1 %>.
+                  </td>
+                  <td>
+                    <%= teams[i].teamName %>
+                  </td>
+                  <td>
+                    <%= teams[i].TotalAvgScore.toString().slice(0,4) %>
+                  </td>
+                </tr>
+                <% } %>
+                  <%}%>
+        </table>
+      </div>
+    </main>
+    <!-- Background Map -->
+    <div class="absolute top-0 bottom-0 left-0 right-0 h-full w-full overflow-hidden">
+
+    </div>
+  </div>
+  <!-- partial -->
+
+</body>
+
+</html>
