@@ -89,6 +89,9 @@ td {
     max-width: 150px;
     text-align: center;
   }
+  .p-16 {
+    padding: 1rem !important;
+  }
 }
 
 .top5 {
