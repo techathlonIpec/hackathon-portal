@@ -79,9 +79,11 @@ app.post("/login", checkEventTime, passport.authenticate('local', {
     failureFlash: true
 }))
 
+/*
 app.get('/', checkEventTime, checkUnAuthenticated, (req, res) => {
     res.render('index.ejs')
 })
+*/
 
 app.get('/eventPage', checkEventTime, checkAuthenticated, (req, res) => {
     // We find the user first
@@ -211,7 +213,7 @@ app.post('/submitMarks', checkEventTime, checkAuthenticated, (req, res) => {
     }
 })
 
-app.get('/leaderboard', (req, res) => {
+app.get('/', (req, res) => {
     teamsCollection.find({ accountType: 'participants' }).sort({ TotalAvgScore: -1 }).limit(10).then(teams => {
         res.render('leaderboard.ejs', { teams })
     })
