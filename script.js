@@ -93,11 +93,11 @@ function init() {
     cube.add(wfloor);
     cube.castShadow = true;
     cube.receiveShadow = true;
-    cube.rotationValue = 0.1+Math.abs(mathRandom(8));
+    cube.rotationValue = 0.4+Math.abs(mathRandom(200));
     
     //floor.scale.x = floor.scale.z = 1+mathRandom(0.33);
     floor.scale.y = 0.05;//+mathRandom(0.5);
-    cube.scale.y = 0.5+Math.abs(mathRandom(8));
+    cube.scale.y = 0.01+Math.abs(mathRandom(6));
     //TweenMax.to(cube.scale, 1, {y:cube.rotationValue, repeat:-1, yoyo:true, delay:i*0.005, ease:Power1.easeInOut});
     /*cube.setScale = 0.1+Math.abs(mathRandom());
     
