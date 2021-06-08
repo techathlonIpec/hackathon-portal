@@ -35,7 +35,7 @@ var uSpeed = 0.001;
 
 //----------------------------------------------------------------- FOG background
 
-var setcolor = 0xc82333;
+var setcolor = 0xF02050;
 //var setcolor = 0xF2F111;
 //var setcolor = 0xFF6347;
 
@@ -93,11 +93,11 @@ function init() {
     cube.add(wfloor);
     cube.castShadow = true;
     cube.receiveShadow = true;
-    cube.rotationValue = 0.4+Math.abs(mathRandom(8));
+    cube.rotationValue = 0.1+Math.abs(mathRandom(8));
     
     //floor.scale.x = floor.scale.z = 1+mathRandom(0.33);
     floor.scale.y = 0.05;//+mathRandom(0.5);
-    cube.scale.y = 0.01+Math.abs(mathRandom(6));
+    cube.scale.y = 0.1+Math.abs(mathRandom(8));
     //TweenMax.to(cube.scale, 1, {y:cube.rotationValue, repeat:-1, yoyo:true, delay:i*0.005, ease:Power1.easeInOut});
     /*cube.setScale = 0.1+Math.abs(mathRandom());
     
@@ -174,8 +174,8 @@ window.addEventListener('touchstart', onDocumentTouchStart, false );
 window.addEventListener('touchmove', onDocumentTouchMove, false );
 
 //----------------------------------------------------------------- Lights
-var ambientLight = new THREE.AmbientLight(0xFFFFFF, 9);
-var lightFront = new THREE.SpotLight(0xFFFFFF, 20, 19);
+var ambientLight = new THREE.AmbientLight(0xFFFFFF, 4);
+var lightFront = new THREE.SpotLight(0xFFFFFF, 20, 10);
 var lightBack = new THREE.PointLight(0xFFFFFF, 0.5);
 
 var spotLightHelper = new THREE.SpotLightHelper( lightFront );
@@ -187,7 +187,7 @@ lightFront.position.set(5, 5, 5);
 lightFront.castShadow = true;
 lightFront.shadow.mapSize.width = 6000;
 lightFront.shadow.mapSize.height = lightFront.shadow.mapSize.width;
-lightFront.penumbra = 0.9;
+lightFront.penumbra = 0.1;
 lightBack.position.set(0,6,0);
 
 smoke.position.y = 2;
