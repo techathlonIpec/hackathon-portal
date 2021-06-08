@@ -159,8 +159,8 @@ function onMouseMove(event) {
     console.log(mouse.y);
   }
   else{
-    mouse.x = ((event.clientX / window.innerWidth) * 2 - 1)/100;
-    mouse.y = (-(event.clientY / window.innerHeight) * 2 + 1)/100;
+    mouse.x = ((event.clientX / window.innerWidth) * 2 - 1)/10;
+    mouse.y = (-(event.clientY / window.innerHeight) * 2 + 1)/10;
   }
 };
 window.addEventListener('mousemove', onMouseMove, false);
