@@ -155,23 +155,23 @@ function onMouseMove(event) {
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 };
-function onDocumentTouchStart( event ) {
-  if ( event.touches.length == 1 ) {
-    event.preventDefault();
-    mouse.x = event.touches[ 0 ].pageX -  window.innerWidth / 2;
-    mouse.y = event.touches[ 0 ].pageY - window.innerHeight / 2;
-  };
-};
-function onDocumentTouchMove( event ) {
-  if ( event.touches.length == 1 ) {
-    event.preventDefault();
-    mouse.x = event.touches[ 0 ].pageX -  window.innerWidth / 2;
-    mouse.y = event.touches[ 0 ].pageY - window.innerHeight / 2;
-  }
-}
+// function onDocumentTouchStart( event ) {
+//   if ( event.touches.length == 1 ) {
+//     event.preventDefault();
+//     mouse.x = event.touches[ 0 ].pageX -  window.innerWidth / 2;
+//     mouse.y = event.touches[ 0 ].pageY - window.innerHeight / 2;
+//   };
+// };
+// function onDocumentTouchMove( event ) {
+//   if ( event.touches.length == 1 ) {
+//     event.preventDefault();
+//     mouse.x = event.touches[ 0 ].pageX -  window.innerWidth / 2;
+//     mouse.y = event.touches[ 0 ].pageY - window.innerHeight / 2;
+//   }
+// }
 window.addEventListener('mousemove', onMouseMove, false);
-window.addEventListener('touchstart', onDocumentTouchStart, false );
-window.addEventListener('touchmove', onDocumentTouchMove, false );
+// window.addEventListener('touchstart', onDocumentTouchStart, false );
+// window.addEventListener('touchmove', onDocumentTouchMove, false );
 
 //----------------------------------------------------------------- Lights
 var ambientLight = new THREE.AmbientLight(0xFFFFFF, 4);
