@@ -249,7 +249,7 @@ var animate = function() {
   requestAnimationFrame(animate);
   
   city.rotation.y -= ((mouse.x * 8) - camera.rotation.y) * uSpeed;
-  city.rotation.x -= (-(mouse.y * 2) - camera.rotation.x) * uSpeed;
+  city.rotation.x -= (-(mouse.y * 6) - camera.rotation.x) * uSpeed;
   if (city.rotation.x < -0.05) city.rotation.x = -0.05;
   else if (city.rotation.x>1) city.rotation.x = 1;
   var cityRotation = Math.sin(Date.now() / 5000) * 13;
