@@ -93,7 +93,7 @@ function init() {
     cube.add(wfloor);
     cube.castShadow = true;
     cube.receiveShadow = true;
-    cube.rotationValue = 0.4+Math.abs(mathRandom(200));
+    cube.rotationValue = 0.4+Math.abs(mathRandom(8));
     
     //floor.scale.x = floor.scale.z = 1+mathRandom(0.33);
     floor.scale.y = 0.05;//+mathRandom(0.5);
