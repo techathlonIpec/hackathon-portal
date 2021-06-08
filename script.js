@@ -158,15 +158,15 @@ function onMouseMove(event) {
 function onDocumentTouchStart( event ) {
   if ( event.touches.length == 1 ) {
     event.preventDefault();
-    mouse.x = (event.touches[ 0 ].pageX -  window.innerWidth / 2)/100;
-    mouse.y = (event.touches[ 0 ].pageY - window.innerHeight / 2)/100;
+    mouse.x = -(event.touches[ 0 ].pageX -  window.innerWidth / 2)/100;
+    mouse.y = -(event.touches[ 0 ].pageY - window.innerHeight / 2)/100;
   };
 };
 function onDocumentTouchMove( event ) {
   if ( event.touches.length == 1 ) {
     event.preventDefault();
-    mouse.x = (event.touches[ 0 ].pageX -  window.innerWidth / 2)/100;
-    mouse.y = (event.touches[ 0 ].pageY - window.innerHeight / 2)/100;
+    mouse.x = -(event.touches[ 0 ].pageX -  window.innerWidth / 2)/100;
+    mouse.y = -(event.touches[ 0 ].pageY - window.innerHeight / 2)/100;
   }
 }
 window.addEventListener('mousemove', onMouseMove, false);
