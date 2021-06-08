@@ -152,20 +152,26 @@ var intersected;
 
 function onMouseMove(event) {
   event.preventDefault();
-  var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  if(!isMobile){
-    
-    console.log(mouse.x)
-    console.log(mouse.y);
-  }
-  else{
-    mouse.x = ((event.clientX / window.innerWidth) * 2 - 1)/10;
-    mouse.y = (-(event.clientY / window.innerHeight) * 2 + 1)/10;
-  }
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 };
+function onDocumentTouchStart( event ) {
+  if ( event.touches.length == 1 ) {
+    event.preventDefault();
+    mouse.x = (event.touches[ 0 ].pageX -  window.innerWidth / 2)/100;
+    mouse.y = (event.touches[ 0 ].pageY - window.innerHeight / 2)/100;
+  };
+};
+function onDocumentTouchMove( event ) {
+  if ( event.touches.length == 1 ) {
+    event.preventDefault();
+    mouse.x = (event.touches[ 0 ].pageX -  window.innerWidth / 2)/100;
+    mouse.y = (event.touches[ 0 ].pageY - window.innerHeight / 2)/100;
+  }
+}
 window.addEventListener('mousemove', onMouseMove, false);
-// window.addEventListener('touchstart', onDocumentTouchStart, false );
-// window.addEventListener('touchmove', onDocumentTouchMove, false );
+window.addEventListener('touchstart', onDocumentTouchStart, false );
+window.addEventListener('touchmove', onDocumentTouchMove, false );
 
 //----------------------------------------------------------------- Lights
 var ambientLight = new THREE.AmbientLight(0xFFFFFF, 4);
@@ -249,7 +255,7 @@ var animate = function() {
   requestAnimationFrame(animate);
   
   city.rotation.y -= ((mouse.x * 8) - camera.rotation.y) * uSpeed;
-  city.rotation.x -= (-(mouse.y * 6) - camera.rotation.x) * uSpeed;
+  city.rotation.x -= (-(mouse.y * 2) - camera.rotation.x) * uSpeed;
   if (city.rotation.x < -0.05) city.rotation.x = -0.05;
   else if (city.rotation.x>1) city.rotation.x = 1;
   var cityRotation = Math.sin(Date.now() / 5000) * 13;
