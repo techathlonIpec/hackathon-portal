@@ -152,23 +152,17 @@ var intersected;
 
 function onMouseMove(event) {
   event.preventDefault();
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if(!isMobile){
+    
+    console.log(mouse.x)
+    console.log(mouse.y);
+  }
+  else{
+    mouse.x = ((event.clientX / window.innerWidth) * 2 - 1)/100;
+    mouse.y = (-(event.clientY / window.innerHeight) * 2 + 1)/100;
+  }
 };
-// function onDocumentTouchStart( event ) {
-//   if ( event.touches.length == 1 ) {
-//     event.preventDefault();
-//     mouse.x = event.touches[ 0 ].pageX -  window.innerWidth / 2;
-//     mouse.y = event.touches[ 0 ].pageY - window.innerHeight / 2;
-//   };
-// };
-// function onDocumentTouchMove( event ) {
-//   if ( event.touches.length == 1 ) {
-//     event.preventDefault();
-//     mouse.x = event.touches[ 0 ].pageX -  window.innerWidth / 2;
-//     mouse.y = event.touches[ 0 ].pageY - window.innerHeight / 2;
-//   }
-// }
 window.addEventListener('mousemove', onMouseMove, false);
 // window.addEventListener('touchstart', onDocumentTouchStart, false );
 // window.addEventListener('touchmove', onDocumentTouchMove, false );
