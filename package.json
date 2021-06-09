@@ -5,17 +5,19 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "devStart": "nodemon index.js"
+    "start:dev": "nodemon index.js"
   },
-  "keywords": [
-    "Cryptohunt",
-    "quiz",
-    "trinity",
-    "cyber",
-    "forum",
-    "tdc"
+  "keywords": [],
+  "author": {
+    "name": "Ashutosh Kumar",
+    "email": "ashutoshkumar.15@outlook.com"
+  },
+  "contributors": [
+    {
+      "name": "Anshika Gupta",
+      "email": "anshika.04@outlook.com"
+    }
   ],
-  "author": "Trinity Cyber Forum",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.0.0",

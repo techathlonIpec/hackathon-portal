@@ -11,12 +11,12 @@ const teamSchema = new schema({
         type: String,
         required: true
     },
-    accountType: {
-        type: String,
+    accountType: { // 0 - participant, 1 - judges, 2 - admin, 3 - vip
+        type: Number,
         required: true,
-        default: 'participants'
+        default: 0
     },
-    topicSelected: {
+    themeSelected: {
         type: Number,
         required: true,
         default: 0
@@ -25,48 +25,15 @@ const teamSchema = new schema({
         type: String,
         required: true
     },
-    hostedWebAppLink: {
+    solutionLink: {
         type: String,
-        required: true,
-        default: 'None'
+        required: false,
     },
-    judgementScoreOne: {
-        type: Number,
-        required: true,
-        default: 0,
-        max: 20
-    },
-    judgementScoreTwo: {
-        type: Number,
-        required: true,
-        default: 0,
-        max: 20
-    },
-    judgementScoreThree: {
-        type: Number,
-        required: true,
-        default: 0,
-        max: 20
-    },
-    judgementScoreFour: {
-        type: Number,
-        required: true,
-        default: 0,
-        max: 20
-    },
-    TotalAvgScore: {
-        type: Number,
-        required: true,
-        default: 0,
-        max: 20
-    },
-    judgeRound: {
-        type: Number,
-        required: true,
-        default: 1,
-        max: 4
+    scores: {
+        type: [Number],
+        required: false,
+        default: [0, 0, 0, 0]
     }
-
 });
 
 const participantModel = mongoose.model('teams', teamSchema);

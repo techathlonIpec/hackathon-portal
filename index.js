@@ -28,7 +28,6 @@ mongoose.connect(process.env.MONGODB_URI, {
         console.log(`Error ${err}`);
     else
         console.log("Connected to MongoDB");
-
 })
 app.use(express.urlencoded({ extended: false }));
 app.use(ddos.express)
@@ -53,14 +52,14 @@ initializePassport(passport,
 )
 
 app.post('/register', checkUnAuthenticated, (req, res) => {
-    var teamName = (req.body.teamName).toLowerCase();
+    let teamName = (req.body.teamName).toLowerCase();
     teamsCollection.findOne({ teamName: teamName }).then(team => {
         if (team) return res.status(400).send({ done: false, message: 'Team already Exists.' })
         let data = {}
         data.teamName = teamName
         data.password = bcrypt.hashSync(req.body.password, 10)
-        data.gitHubRepoLink = "https://github.com/ipectrinity/" + teamName;
-        data.accountType = req.body.accountType ? req.body.accountType : 'participants'
+        data.gitHubRepoLink = "https://github.com/techathlon20/" + teamName;
+        data.accountType = req.body.accountType ? req.body.accountType : 0;
         new teamsCollection(data).save((err, registeredTeam) => {
             if (err) {
                 console.log(`Error ${err}`);
@@ -79,11 +78,10 @@ app.post("/login", checkEventTime, passport.authenticate('local', {
     failureFlash: true
 }))
 
-/*
 app.get('/', checkEventTime, checkUnAuthenticated, (req, res) => {
     res.render('index.ejs')
 })
-*/
+
 
 app.get('/eventPage', checkEventTime, checkAuthenticated, (req, res) => {
     // We find the user first
@@ -212,13 +210,13 @@ app.post('/submitMarks', checkEventTime, checkAuthenticated, (req, res) => {
         res.send('Forbidden to participant')
     }
 })
-
+/*
 app.get('/', (req, res) => {
     teamsCollection.find({ accountType: 'participants' }).sort({ TotalAvgScore: -1 }).limit(10).then(teams => {
         res.render('leaderboard.ejs', { teams })
     })
 })
-
+*/
 app.get('/message', (req, res) => {
     res.render('bigMessage.ejs')
 })

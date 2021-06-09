@@ -2,17 +2,17 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const questionSchema = new Schema({
-    topicNumber: {
+    themeNumber: {
         type: Number,
         required: true,
         unique: true,
         dropDups: true
     },
-    topic: {
+    themeID: {
         type: String,
         required: true,
     },
-    topicStatement: {
+    themeStatement: {
         type: String,
         required: true
     },
