@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const questionSchema = new Schema({
+const themeSchema = new Schema({
     themeNumber: {
         type: Number,
         required: true,
@@ -19,5 +19,5 @@ const questionSchema = new Schema({
 });
 
 
-const questionModel = mongoose.model('questions', questionSchema);
-module.exports = questionModel;
+const themeModel = mongoose.model('theme', themeSchema);
+module.exports = themeModel;

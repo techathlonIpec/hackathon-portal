@@ -6,6 +6,7 @@ const passport = require("passport")
 const flash = require("express-flash")
 const session = require("express-session")
 var Ddos = require('ddos')
+const { default: axios } = require('axios');
 
 // DDOS PROTECTION
 var ddos = new Ddos;
@@ -13,7 +14,7 @@ var ddos = new Ddos;
 const app = express();
 
 const teamsCollection = require('./models/teams.js');
-const questionCollection = require('./models/questions.js');
+const themeCollection = require('./models/themes.js');
 const { checkAuthenticated, checkUnAuthenticated, checkEventTime } = require('./authFunctions')
 
 dotenv.config()
@@ -85,117 +86,141 @@ app.get('/', checkEventTime, checkUnAuthenticated, (req, res) => {
 
 app.get('/eventPage', checkEventTime, checkAuthenticated, (req, res) => {
     // We find the user first
-    teamsCollection.findOne({ teamName: req.user.teamName }).then(team => {
+    teamsCollection.findOne({ teamName: req.user.teamName }).then(async team => {
         if (!team) return res.status(400).send({ done: false, message: 'No Team found with the given teamName.' })
-
         // We look into account type
-        if (team.accountType === 'participants') {
-            // We find that if they have topic already decided
-            if (team.topicSelected === 0) {
-                questionCollection.find().then(questions => {
-                    if (questions) {
-                        res.render('eventPage.ejs', { team: team, topics: questions })
-                    }
-                })
-                // We render the Dashboard where the Topic Selection is Available
-            }
-            else {
-                teamsCollection.find({ accountType: 'participants' }).sort({ TotalAvgScore: -1 }).limit(10).then(leaderBoardTeams => {
-                    questionCollection.findOne({ topicNumber: team.topicSelected }).then(topicSelected => {
-                        res.render('teamDashboard.ejs', { team: team, leaderboard: leaderBoardTeams, topicSelected: topicSelected })
+        if (team.accountType === 0) {
+            themeCollection.find().then(themes => {
+                if (themes) {
+                    axios.get('https://api.github.com/repos/techathlonIpec/website-backend/commits', {
+                        headers: {
+                            Authorization: `token ${process.env.GITHUB_TOKEN}`
+                        }
+                    }).then(({ data }) => {
+                        let latestCommit = data[0]
+                        let today = new Date()
+                        let latestCommitDate = new Date(latestCommit.commit.committer.date)
+                        team.lastCommit = latestCommitDate
+                        team.save()
+                        let commitDateString = `${latestCommitDate.getDate()}/${latestCommitDate.getMonth()}/${latestCommitDate.getYear()} Time: ${latestCommitDate.getHours()}:${latestCommitDate.getMinutes()}`
+                        console.log(latestCommitDate);
+                        if (latestCommitDate.getDate() == today.getDate()) {
+                            let hourDiffer = today.getHours() - latestCommitDate.getHours()
+                            console.log(hourDiffer)
+                            if (hourDiffer > 2) {
+                                req.flash('error', 'Your team has not commited for the last ' + hourDiffer + ' hours.')
+                            }
+                        }
+                        else {
+                            req.flash('error', 'Your team has not commited from yesterday.')
+                        }
+                        res.render('eventPage.ejs', { team: team, themes: themes, latestCommit, commitDateString })
                     })
-                })
-
-                // We render the page where the selected topic is displayed and Leaderboard on the right
-            }
+                }
+            })
+            // We render the Dashboard where the Topic Selection is Available
         }
-        else {
-            teamsCollection.find({ accountType: 'participants' }).then(teams => {
+        else if (team.accountType === 1) {
+            teamsCollection.find({ accountType: 0 }).then(async teams => {
+                await setLastCommits(teams)
                 res.render('judgeDashboard.ejs', { team: req.user, teams: teams })
             })
 
             // We render the Judge Dashboard, with list of team and there hosting
         }
-
+        else if (team.accountType === 2) {
+            teamsCollection.find({ accountType: 0 }).then(async (teams) => {
+                await setLastCommits(teams)
+                res.render('moderatorDashboard.ejs', { team: req.user, teams })
+            })
+        }
     })
-
-
 })
+// Helper Function
+async function setLastCommits(teams) {
+    teams.forEach(async team => {
+        let gitLink = `https://api.github.com/repos/${team.gitHubRepoLink.slice(19)}/commits`;
+        try {
+            let { data } = await axios.get(gitLink)
+            if ({ data }) {
+                team.lastCommit = new Date(data[0].commit.committer.date)
+                team.save()
+            }
+        }
+        catch (e) {
+            //Do nothing
+        }
+    })
+}
 
 app.post('/submitTopic', checkEventTime, checkAuthenticated, (req, res) => {
-    teamsCollection.findOneAndUpdate({ teamName: req.user.teamName }, { topicSelected: req.body.topicSelected, hostedWebAppLink: req.body.hostedWebAppLink }).then(updatedTeam => {
+    teamsCollection.findOneAndUpdate({ teamName: req.user.teamName }, { themeSelected: req.body.themeSelected, solutionLink: req.body.solutionLink }).then(updatedTeam => {
         if (updatedTeam) {
-            req.flash('success', 'Team Topic has been submitted succesfully')
+            req.flash('success', 'Team Profile has been updated succesfully')
             res.redirect('/eventPage')
         }
         else {
-            req.flash('error', 'Unknown Error Occurred. Contact Trinity Team')
+            req.flash('error', 'Unknown Error Occurred. Contact Techathlon Team')
             res.redirect('/eventPage')
         }
     })
 })
 
-app.post('/addQuestion', (req, res) => {
+app.post('/addTheme', (req, res) => {
     let data = {}
-    data.topicNumber = req.body.topicNumber;
-    data.topic = req.body.topic;
-    data.topicStatement = req.body.topicStatement
-    new questionCollection(data).save((err, question) => {
+    data.themeNumber = req.body.themeNumber;
+    data.themeID = req.body.themeID;
+    data.themeStatement = req.body.themeStatement
+    new themeCollection(data).save((err, question) => {
         if (err) {
             console.log(`Error ${err}`);
             res.send({ done: false, message: 'Unknown Error Occured!' });
         }
         else {
-            res.send({ done: true, message: 'Question created Successfully!', question });
+            res.send({ done: true, message: 'Theme created Successfully!', question });
         }
     });
 })
 
 app.get('/teamPage', checkEventTime, checkAuthenticated, (req, res) => {
-    if (req.user.accountType === 'judge') {
+    if (req.user.accountType === 1) {
         teamsCollection.findOne({ teamName: req.query.teamName }).then(team => {
             if (team) {
-                if (team.judgeRound < 5) {
-                    if (team.topicSelected != 0) {
-                        questionCollection.findOne({ topicNumber: team.topicSelected }).then(topic => {
-                            res.render('teamPage.ejs', { Theteam: team, topic: topic })
-                        })
-                    }
-                    else {
-                        req.flash('bigMessage', 'This team has not selected any topic. Can not Judge them.')
-                        res.render('bigMessage.ejs')
-                    }
+                if (team.themeSelected != 0) {
+                    themeCollection.findOne({ themeNumber: team.themeSelected }).then(theme => {
+                        res.render('teamPage.ejs', { Theteam: team, theme: theme })
+                    })
                 }
                 else {
-                    req.flash('bigMessage', 'This team has been judged for all three rounds')
+                    req.flash('bigMessage', 'This team has not selected any theme. Can not Judge them.')
                     res.render('bigMessage.ejs')
                 }
             }
         })
     }
     else {
-        req.flash('bigMessage', "This page is forbidden to participants")
+        req.flash('bigMessage', "This page is accessible only by judges.")
         res.render('bigMessage.ejs')
     }
 })
 
 app.post('/submitMarks', checkEventTime, checkAuthenticated, (req, res) => {
-    if (req.user.accountType === 'judge') {
+    if (req.user.accountType === 1) {
         teamsCollection.findOne({ teamName: req.body.teamName }).then(team => {
             if (team) {
-                team.judgementScoreOne = (Number(team.judgementScoreOne) + Number(req.body.judgementScoreOne)) / team.judgeRound
-                team.judgementScoreTwo = (Number(team.judgementScoreTwo) + Number(req.body.judgementScoreTwo)) / team.judgeRound
-                team.judgementScoreThree = (Number(team.judgementScoreThree) + Number(req.body.judgementScoreThree)) / team.judgeRound
-                team.judgementScoreFour = (Number(team.judgementScoreFour) + Number(req.body.judgementScoreFour)) / team.judgeRound
-                team.TotalAvgScore = (team.judgementScoreOne + team.judgementScoreTwo + team.judgementScoreThree + team.judgementScoreFour) / (4)
-                team.judgeRound++
+                team.scores = [
+                    Number(req.body.judgementScoreOne),
+                    Number(req.body.judgementScoreTwo),
+                    Number(req.body.judgementScoreThree),
+                    Number(req.body.judgementScoreFour)
+                ]
                 team.save().then(savedTeam => {
                     if (savedTeam) {
-                        req.flash('success', `This marks has been added for this teams round ${savedTeam.judgeRound - 1}`)
+                        req.flash('success', `This marks has been added for this team`)
                         res.redirect('/teamPage?teamName=' + savedTeam.teamName)
                     }
                     else {
-                        req.flash('error', 'Could not Update marks. Contact Trinity Team.')
+                        req.flash('error', 'Could not Update marks. Contact Techathlon Team.')
                         res.redirect('/eventPage')
                     }
                 })

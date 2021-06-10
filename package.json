@@ -20,6 +20,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "ddos": "^0.2.1",
     "dotenv": "^8.2.0",

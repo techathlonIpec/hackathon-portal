@@ -3,46 +3,40 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trinity: Dare2Develop</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="login.css" />
+  <title>Techathlon 21: Hackathon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css'>
+  <link rel="stylesheet" href="./login.css">
+
 </head>
 
 <body>
-  <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:200' rel='stylesheet' type='text/css'>
-  <div class="container">
-    <div class="window">
-      <div class="handle">
-        <div class="buttons">
-          <button class="close">
-          </button>
-          <button class="minimize">
-          </button>
-          <button class="maximize">
-          </button>
-        </div>
-        <span class="title"></span>
-      </div>
-      <div class="terminal"></div>
+  <!-- partial:index.partial.html -->
+
+  <div id="particles-js"></div>
+  <div class="animated bounceInDown">
+    <div class="container">
+      <img src="https://techathlonipec.tech/images/MainLogo.png" height="80px" alt="">
+      <% if (messages.error){ %>
+        <span class="error animated tada" id="msg">
+          <%= messages.error %>
+        </span>
+        <% } %>
+          <form name="form1" class="box" method="POST" action="/login">
+            <h4>Techathlon 21 </h4>
+            <h5>Sign in to your account.</h5>
+            <input type="text" name="teamName" placeholder="Team Name" autocomplete="off">
+            <input type="password" name="password" placeholder="Passsword" id="pwd" autocomplete="off">
+            <input type="submit" value="Sign in" class="btn1">
+          </form>
     </div>
   </div>
+  <!-- partial -->
+  <script src='https://cldup.com/S6Ptkwu_qA.js'></script>
+  <script src="./script.js"></script>
 
-  <form action="/login" method="POST" id="loginForm" hidden>
-    <input type="text" id="teamName" name="teamName">
-    <input type="text" id="password" name="password">
-  </form>
-
-  <%if(messages.error){%>
-    <h1 id="errorMessage" hidden>
-      <%= messages.error %>
-    </h1>
-    <% } %>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="code.js"></script>
 
 </html>

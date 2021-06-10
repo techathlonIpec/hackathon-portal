@@ -11,7 +11,7 @@ const teamSchema = new schema({
         type: String,
         required: true
     },
-    accountType: { // 0 - participant, 1 - judges, 2 - admin, 3 - vip
+    accountType: { // 0 - participant, 1 - judges, 2 - moderators, 3 - vip
         type: Number,
         required: true,
         default: 0
@@ -33,6 +33,10 @@ const teamSchema = new schema({
         type: [Number],
         required: false,
         default: [0, 0, 0, 0]
+    },
+    lastCommit: {
+        type: Date,
+        required: false
     }
 });
 

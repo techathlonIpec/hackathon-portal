@@ -1,7 +1,28 @@
+body,
+html {
+  font-family: "Source Sans Pro", sans-serif;
+  background-color: #db3b44;
+  padding: 0;
+  margin: 0;
+}
 body {
   width: 100%;
 }
-
+#particles-js {
+  position: absolute;
+  width: 100%;
+  min-height: 100vh;
+}
+header {
+  justify-content: space-between;
+  align-items: center;
+}
+header > img {
+  height: 100px !important;
+}
+.inner-wrapper {
+  height: 75vh;
+}
 .bg-primary {
   background: #0e0e0e;
 }
@@ -45,17 +66,17 @@ body {
 }
 
 .bg-accent {
-  background: #eb486e;
+  background: #db3b44;
 }
 .text-accent {
-  color: #eb486e;
+  color: #db3b44;
 }
 .fill-accent {
-  fill: #eb486e;
+  fill: #db3b44;
 }
 
 .bg-accent-gradient {
-  background: linear-gradient(to right, #f6505f, #eb486e);
+  background: #db3b44;
 }
 
 .shadow-showcase {
@@ -95,5 +116,5 @@ td {
 }
 
 .top5 {
-  background-color: #ef3353;
+  background-color: #db3b44;
 }

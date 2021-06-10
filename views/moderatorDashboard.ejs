@@ -21,7 +21,8 @@
       </div>
       <% } %>
         <% if(messages.success) { %>
-          <div class="bg-red-100 border border-green-400 mb-5 text-green-700 px-4 py-3 rounded relative" role="alert">
+          <div class="bg-red-100 blur-sm border border-green-400 mb-5 text-green-700 px-4 py-3 rounded relative"
+            role="alert">
             <span class="block sm:inline">
               <%= messages.success %>
             </span>
@@ -29,7 +30,7 @@
           <% } %>
 
             <!-- partial:index.partial.html -->
-            <div class="relative inner-wrapper h-full text-gray-100 bg-primary rounded-lg shadow-showcase"
+            <div class="relative inner-wrapper blur-sm h-full text-gray-100 bg-primary rounded-lg shadow-showcase"
               style="background-color: rgba(0, 0, 0, 0.9);">
 
 
@@ -49,7 +50,7 @@
                         <tr>
                           <th>Team Name</th>
                           <th>Github Repo</th>
-                          <th>Judge Link</th>
+                          <th>Last Commit</th>
                         </tr>
                         <% for (let i=0; i<teams.length; i++){ %>
                           <tr>
@@ -62,7 +63,7 @@
                               </a>
                             </td>
                             <td>
-                              <a href="/teamPage?teamName=<%=teams[i].teamName%>" target="_blank">Click here</a>
+                              <%=teams[i].lastCommit%>
                             </td>
                           </tr>
                           <% } %>
@@ -75,23 +76,13 @@
                     <header class="font-semibold text-primary-lightest text-xl px-8 mb-3">Important Links</header>
                     <div class="flex flex-wrap bg-primary-light bg-opacity-75 bg-blur p-8 rounded-lg">
                       <div class="mr-4 tracking-widest leading-loose">
-                        <p class="text-xl font-bold">Judge Username: <strong><span class="text-accent">
+                        <p class="text-xl font-bold">Moderator Username: <strong><span class="text-accent">
                               <%=team.teamName%>
                             </span></strong> | <a href="/logout">
                             <button
                               class="mt-2 text-white px-6 bg-accent-gradient rounded-lg text-white font-semibold ml-auto">Logout</button></a>
                         </p>
                         <br><br><br>
-                        <p>Judgement Criteria:
-                          <a href="ProblemStatements.pdf" target="_blank">
-                            Click Here
-                          </a>
-                        </p>
-                        <p>Discord Server:
-                          <a href="ProblemStatements.pdf" target="_blank">
-                            Click Here
-                          </a>
-                        </p>
                       </div>
                     </div>
                   </section>
