@@ -16,8 +16,7 @@ function checkUnAuthenticated(req, res, next) {
 function checkEventTime(req, res, next) {
     var eventFlag = process.env.EVENT_FLAG
     if (eventFlag == 'BEFORE') {
-        req.flash('bigMessage', 'Oh Boy! You are Excited. But We are sorry. Event will start on 01st May 2021 (09:00 AM) ')
-        return res.redirect('/message')
+        return res.render('comingsoon.ejs')
     }
     if (eventFlag == 'ONTIME') {
         next()

@@ -59,7 +59,7 @@ app.post('/register', checkUnAuthenticated, (req, res) => {
         let data = {}
         data.teamName = teamName
         data.password = bcrypt.hashSync(req.body.password, 10)
-        data.gitHubRepoLink = "https://github.com/techathlon20/" + teamName;
+        data.gitHubRepoLink = "https://github.com/Hackathon21/" + teamName;
         data.accountType = req.body.accountType ? req.body.accountType : 0;
         new teamsCollection(data).save((err, registeredTeam) => {
             if (err) {
@@ -92,7 +92,8 @@ app.get('/eventPage', checkEventTime, checkAuthenticated, (req, res) => {
         if (team.accountType === 0) {
             themeCollection.find().then(themes => {
                 if (themes) {
-                    axios.get('https://api.github.com/repos/techathlonIpec/website-backend/commits', {
+                    let gitLink = `https://api.github.com/repos/${team.gitHubRepoLink.slice(19)}/commits`;
+                    axios.get(gitLink, {
                         headers: {
                             Authorization: `token ${process.env.GITHUB_TOKEN}`
                         }
@@ -116,12 +117,16 @@ app.get('/eventPage', checkEventTime, checkAuthenticated, (req, res) => {
                         }
                         res.render('eventPage.ejs', { team: team, themes: themes, latestCommit, commitDateString })
                     })
+                        .catch(exp => {
+                            console.error(exp);
+                            res.send("Some Unknown Error Occurred while fetching your GitHub Info. Contact Team.")
+                        })
                 }
             })
             // We render the Dashboard where the Topic Selection is Available
         }
         else if (team.accountType === 1) {
-            teamsCollection.find({ accountType: 0 }).then(async teams => {
+            teamsCollection.find({ accountType: 0, $or: [{ judgeUserName: req.user.teamName }, { judgeTwoUserName: req.user.teamName }] }).then(async teams => {
                 await setLastCommits(teams)
                 res.render('judgeDashboard.ejs', { team: req.user, teams: teams })
             })
@@ -208,12 +213,23 @@ app.post('/submitMarks', checkEventTime, checkAuthenticated, (req, res) => {
     if (req.user.accountType === 1) {
         teamsCollection.findOne({ teamName: req.body.teamName }).then(team => {
             if (team) {
-                team.scores = [
-                    Number(req.body.judgementScoreOne),
-                    Number(req.body.judgementScoreTwo),
-                    Number(req.body.judgementScoreThree),
-                    Number(req.body.judgementScoreFour)
-                ]
+                if (team.scores[0] == 0) {
+                    team.scores = [
+                        Number(req.body.judgementScoreOne),
+                        Number(req.body.judgementScoreTwo),
+                        Number(req.body.judgementScoreThree),
+                        Number(req.body.judgementScoreFour),
+                    ]
+                }
+                else {
+                    team.scores = [
+                        (team.scores[0] + Number(req.body.judgementScoreOne)) / 2,
+                        (team.scores[1] + Number(req.body.judgementScoreTwo)) / 2,
+                        (team.scores[2] + Number(req.body.judgementScoreThree)) / 2,
+                        (team.scores[3] + Number(req.body.judgementScoreFour)) / 2,
+                    ]
+                }
+                team.totalScore = team.scores[0] + team.scores[1] + team.scores[2] + team.scores[4]
                 team.save().then(savedTeam => {
                     if (savedTeam) {
                         req.flash('success', `This marks has been added for this team`)

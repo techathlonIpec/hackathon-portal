@@ -32,11 +32,26 @@ const teamSchema = new schema({
     scores: {
         type: [Number],
         required: false,
-        default: [0, 0, 0, 0]
+        default: [0, 0, 0]
+    },
+    totalScore: {
+        type: Number,
+        required: false,
+        default: 0
     },
     lastCommit: {
         type: Date,
         required: false
+    },
+    judgeUserName: {
+        type: String,
+        required: false,
+        default: 'raxj'
+    },
+    judgeTwoUserName: {
+        type: String,
+        required: false,
+        default: 'raxxy'
     }
 });
 

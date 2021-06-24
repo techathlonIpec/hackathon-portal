@@ -12,7 +12,7 @@
 
 <body>
   <div id="particles-js"></div>
-  <div class="wrapper p-32">
+  <div class="wrapper p-8">
     <% if(messages.error) { %>
       <div class="bg-red-100 border border-red-400 mb-5 text-red-700 px-4 py-3 rounded relative" role="alert">
         <span class="block sm:inline">
@@ -41,7 +41,7 @@
 
               <main class="relative z-10 flex flex-col lg:flex-row mx-10 sm:mx-20 md:mx-32">
 
-                <div class="lg:w-7/12 lg:mr-16 space-y-6">
+                <div class="lg:w-9/12 lg:mr-16 space-y-6">
                   <section>
                     <header class="font-semibold text-primary-lightest text-xl px-8 mb-3">List of Teams</header>
                     <div class="bg-primary-light bg-opacity-75 bg-blur rounded-lg p-8 space-y-4">
@@ -70,28 +70,18 @@
                     </div>
                   </section>
                 </div>
-                <div class="relative lg:w-5/12">
+                <div class="relative lg:w-3/12">
                   <section>
-                    <header class="font-semibold text-primary-lightest text-xl px-8 mb-3">Important Links</header>
+                    <header class="font-semibold text-primary-lightest text- px-8 mb-3">Important Links</header>
                     <div class="flex flex-wrap bg-primary-light bg-opacity-75 bg-blur p-8 rounded-lg">
                       <div class="mr-4 tracking-widest leading-loose">
-                        <p class="text-xl font-bold">Judge Username: <strong><span class="text-accent">
+                        <p class="text-md font-bold">Judge: <strong><span class="text-accent">
                               <%=team.teamName%>
-                            </span></strong> | <a href="/logout">
+                            </span></strong> <br> <a href="/logout">
                             <button
                               class="mt-2 text-white px-6 bg-accent-gradient rounded-lg text-white font-semibold ml-auto">Logout</button></a>
                         </p>
                         <br><br><br>
-                        <p>Judgement Criteria:
-                          <a href="ProblemStatements.pdf" target="_blank">
-                            Click Here
-                          </a>
-                        </p>
-                        <p>Discord Server:
-                          <a href="ProblemStatements.pdf" target="_blank">
-                            Click Here
-                          </a>
-                        </p>
                       </div>
                     </div>
                   </section>
