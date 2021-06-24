@@ -21,7 +21,8 @@ header > img {
   height: 100px !important;
 }
 .inner-wrapper {
-  height: 90vh;
+  min-height: 90vh;
+  padding-bottom: 25px;
 }
 .bg-primary {
   background: #0e0e0e;

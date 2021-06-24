@@ -48,26 +48,26 @@
                       <div class="bg-primary-light bg-opacity-75 bg-blur rounded-lg p-8 space-y-4">
                         <input type="text" hidden name="teamName" id="teamName" value="<%= Theteam.teamName %>">
                         <div class="form-group">
-                          Idea Disruption (40%)
-                          <input type="text" placeholder="Give Marks out of 20" name="judgementScoreOne"
+                          Innovation (25 Marks)
+                          <input type="text" placeholder="Give Marks out of 25" name="judgementScoreOne"
                             id="judgementScoreOne" id="judgementCriteria1"
                             class="w-full border border-primary-lightest placeholder-primary-lightest text-sm font-semibold py-3 px-6 bg-transparent rounded-lg" />
                         </div>
                         <div class="form-group">
-                          Team (30%)
-                          <input type="text" placeholder="Give Marks out of 20" name="judgementScoreTwo"
+                          Content (25 Marks)
+                          <input type="text" placeholder="Give Marks out of 25" name="judgementScoreTwo"
                             id="judgementScoreTwo" id="judgementCriteria2"
                             class="w-full border border-primary-lightest placeholder-primary-lightest text-sm font-semibold py-3 px-6 bg-transparent rounded-lg" />
                         </div>
                         <div class="form-group">
-                          Reality Check (30%)
-                          <input type="text" placeholder="Give Marks out of 20" name="judgementScoreThree"
+                          UI/UX or Research (25 Marks)
+                          <input type="text" placeholder="Give Marks out of 25" name="judgementScoreThree"
                             id="judgementScoreThree" id="judgementCriteria3"
                             class="w-full border border-primary-lightest placeholder-primary-lightest text-sm font-semibold py-3 px-6 bg-transparent rounded-lg" />
                         </div>
                         <div class="form-group">
-                          Reality Check (30%)
-                          <input type="text" placeholder="Give Marks out of 20" name="judgementScoreFour"
+                          Functionality (25 Marks)
+                          <input type="text" placeholder="Give Marks out of 25" name="judgementScoreFour"
                             id="judgementScoreFour" id="judgementCriteria4"
                             class="w-full border border-primary-lightest placeholder-primary-lightest text-sm font-semibold py-3 px-6 bg-transparent rounded-lg" />
                         </div>
@@ -84,6 +84,8 @@
                     <header class="font-semibold text-primary-lightest text-xl px-8 mb-3">Team Details</header>
                     <div class="flex flex-wrap bg-primary-light bg-opacity-75 bg-blur p-8 rounded-lg">
                       <div class="mr-4 tracking-widest leading-loose">
+                        <p>Team Name: <%=Theteam.teamName %>
+                        </p>
                         <p>Theme Selected: <%= theme.themeID %>
                         </p>
                         <p>Theme Statement: <%= theme.themeStatement %>
